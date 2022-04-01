@@ -1,5 +1,6 @@
 import inspect
 from typing import Any, List
+from functools import wraps
 
 from src.accessible.NonAccessibleMethodException import NonAccessibleMethodException
 
@@ -7,17 +8,22 @@ from src.accessible.NonAccessibleMethodException import NonAccessibleMethodExcep
 class Accessible(object):
 
     @staticmethod
-    def accessible_methods(accessible_methods: List[str]) -> Any:
+    def accessible_methods(accessible_methods: List[str], exclude: List[str]) -> Any:
 
         def wrapper(user_function):
 
+            @wraps(user_function)
             def wrapped_function(*args):
                 current_frame = inspect.currentframe()
                 outer_frames = inspect.getouterframes(current_frame, 2)
                 caller_function_name = outer_frames[1][3]
 
                 if caller_function_name not in accessible_methods:
-                    raise NonAccessibleMethodException('The calling function has been blocked!')
+
+                    if caller_function_name not in exclude:
+                        raise NonAccessibleMethodException('The calling function has been blocked!')
+
+                    return
 
                 return user_function(*args)
 
