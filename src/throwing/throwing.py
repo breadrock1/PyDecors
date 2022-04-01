@@ -1,5 +1,5 @@
 import sys
-
+from functools import wraps
 from logging import error
 from typing import Any, AnyStr, Callable, Optional, Type
 
@@ -19,6 +19,7 @@ class Throwing(object):
 
         def wrapper(user_function):
 
+            @wraps(user_function)
             def wrapped_function(*args):
 
                 try:
