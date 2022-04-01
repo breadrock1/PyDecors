@@ -2,7 +2,7 @@ from pytest import raises
 from typing import NoReturn
 
 from src.accessible.accessible import Accessible
-from src.accessible.NonAccessibleMethodException import NonAccessibleMethodException
+from src.accessible.non_accessible_method_exception import NonAccessibleMethodException
 
 
 class TestAccessibleClass(object):

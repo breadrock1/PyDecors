@@ -2,7 +2,7 @@ import inspect
 from typing import Any, List
 from functools import wraps
 
-from src.accessible.NonAccessibleMethodException import NonAccessibleMethodException
+from src.accessible.non_accessible_method_exception import NonAccessibleMethodException
 
 
 class Accessible(object):
